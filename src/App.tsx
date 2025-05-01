@@ -2,7 +2,7 @@
 import { useState } from "react";
 
 async function generateContent(topics: string[]) {
-  const response = await fetch("https://syntech-vercel-backend.vercel.app/api/generate", {
+  const response = await fetch("https://syntech-backend.onrender.com", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ topics }),

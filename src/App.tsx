@@ -1,7 +1,6 @@
 
 import { useState } from "react";
 
-// fallback version of generateContent inline
 async function generateContent(topics: string[]) {
   const response = await fetch("https://syntech-vercel-backend.vercel.app/api/generate", {
     method: "POST",
@@ -29,9 +28,9 @@ export default function App() {
         throw new Error("Invalid response format");
       }
       setResult(data);
-    } catch (err) {
-      console.error(err);
-      setError("Failed to generate content. Please try again.");
+    } catch (err: any) {
+      console.error("API Error:", err);
+      setError("Failed to generate content. Check console for details.");
     } finally {
       setLoading(false);
     }
@@ -49,30 +48,30 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-white text-gray-900 p-6">
+    <div className="min-h-screen bg-white text-gray-900 p-6 font-sans">
       <header className="text-center mb-10">
-        <h1 className="text-3xl font-bold text-green-800">Syntech Biofuel</h1>
-        <p className="text-sm text-gray-600">AI-powered Social Media Content Generator</p>
+        <h1 className="text-4xl font-bold text-green-800">Syntech Biofuel</h1>
+        <p className="text-md text-gray-600 mt-2">AI-powered Social Media Content Generator</p>
       </header>
 
-      <main className="max-w-2xl mx-auto bg-gray-50 p-6 rounded-xl shadow">
+      <main className="max-w-2xl mx-auto bg-gray-50 p-6 rounded-xl shadow-md">
         <div className="mb-4">
-          <label className="block mb-1 font-medium">Add Topics</label>
+          <label className="block mb-1 font-medium text-sm">Add Topics</label>
           <div className="flex gap-2">
             <input
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Type a topic"
-              className="flex-1 p-2 border rounded"
+              className="flex-1 p-2 border rounded text-sm"
             />
             <button
               onClick={addTopic}
-              className="bg-green-700 text-white px-4 py-2 rounded hover:bg-green-800"
+              className="bg-green-700 text-white px-4 py-2 rounded hover:bg-green-800 text-sm"
             >
               +
             </button>
           </div>
-          <div className="mt-2 flex flex-wrap gap-2">
+          <div className="mt-3 flex flex-wrap gap-2">
             {topics.map(topic => (
               <span
                 key={topic}
@@ -88,7 +87,7 @@ export default function App() {
         <button
           onClick={handleGenerate}
           disabled={loading || topics.length === 0}
-          className="w-full bg-green-700 text-white py-2 rounded hover:bg-green-800 disabled:opacity-50"
+          className="w-full bg-green-700 text-white py-2 rounded hover:bg-green-800 disabled:opacity-50 text-sm"
         >
           {loading ? "Generating..." : "Generate Content"}
         </button>
